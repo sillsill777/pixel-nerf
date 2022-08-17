@@ -6,7 +6,7 @@ https://github.com/kwea123/nerf_pl
 """
 import torch
 import torch.nn.functional as F
-import util
+from ..util import *
 import torch.autograd.profiler as profiler
 from torch.nn import DataParallel
 from dotmap import DotMap

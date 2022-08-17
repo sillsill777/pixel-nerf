@@ -6,7 +6,7 @@ from .encoder import ImageEncoder
 from .code import PositionalEncoding
 from .model_util import make_encoder, make_mlp
 import torch.autograd.profiler as profiler
-from util import repeat_interleave
+from ..util import repeat_interleave
 import os
 import os.path as osp
 import warnings
@@ -19,34 +19,34 @@ class PixelNeRFNet(torch.nn.Module):
         """
         super().__init__()
         self.encoder = make_encoder(conf["encoder"])
-        self.use_encoder = conf.get_bool("use_encoder", True)  # Image features?
+        self.use_encoder = conf.get_bool("use_encoder", True)  # Image features? # True
 
-        self.use_xyz = conf.get_bool("use_xyz", False)
+        self.use_xyz = conf.get_bool("use_xyz", False) # True
 
-        assert self.use_encoder or self.use_xyz  # Must use some feature..
+        assert self.use_encoder or self.use_xyz  # Must use some feature...
 
         # Whether to shift z to align in canonical frame.
         # So that all objects, regardless of camera distance to center, will
         # be centered at z=0.
         # Only makes sense in ShapeNet-type setting.
-        self.normalize_z = conf.get_bool("normalize_z", True)
+        self.normalize_z = conf.get_bool("normalize_z", True) # True
 
         self.stop_encoder_grad = (
             stop_encoder_grad  # Stop ConvNet gradient (freeze weights)
         )
-        self.use_code = conf.get_bool("use_code", False)  # Positional encoding
+        self.use_code = conf.get_bool("use_code", False)  # Positional encoding # True
         self.use_code_viewdirs = conf.get_bool(
             "use_code_viewdirs", True
-        )  # Positional encoding applies to viewdirs
+        )  # Positional encoding applies to viewdirs, False
 
         # Enable view directions
-        self.use_viewdirs = conf.get_bool("use_viewdirs", False)
+        self.use_viewdirs = conf.get_bool("use_viewdirs", False) # True
 
         # Global image features?
-        self.use_global_encoder = conf.get_bool("use_global_encoder", False)
+        self.use_global_encoder = conf.get_bool("use_global_encoder", False) # False
 
-        d_latent = self.encoder.latent_size if self.use_encoder else 0
-        d_in = 3 if self.use_xyz else 1
+        d_latent = self.encoder.latent_size if self.use_encoder else 0 # 512
+        d_in = 3 if self.use_xyz else 1 # 3
 
         if self.use_viewdirs and self.use_code_viewdirs:
             # Apply positional encoding to viewdirs

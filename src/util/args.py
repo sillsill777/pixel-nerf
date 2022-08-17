@@ -9,7 +9,7 @@ from pyhocon import ConfigFactory
 def parse_args(
     callback=None,
     training=False,
-    default_conf="conf/default_mv.conf",
+    default_conf="C:/Users/willy/Desktop/pixelNerf/conf/exp/sn64.conf",
     default_expname="example",
     default_data_format="dvr",
     default_num_epochs=10000000,
@@ -110,3 +110,17 @@ def parse_args(
     print("* Dataset format:", args.dataset_format)
     print("* Dataset location:", args.datadir)
     return args, conf
+
+if __name__ == '__main__':
+    arg,conf=parse_args()
+    conf=conf['model']
+    print(conf.get_bool("use_encoder", True))  # Image features?
+
+    print(conf.get_bool("use_xyz", False))
+    print(conf.get_bool("normalize_z", True))
+    print(conf.get_bool("use_code", False))
+    print(conf.get_bool(
+            "use_code_viewdirs", True
+        ))
+    print(conf.get_bool("use_viewdirs", False))
+    print(conf['encoder'].get_string("type", "spatial"))

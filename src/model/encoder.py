@@ -5,8 +5,8 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 import torchvision
-import util
-from model.custom_encoder import ConvEncoder
+from ..util import *
+from .custom_encoder import ConvEncoder
 import torch.autograd.profiler as profiler
 
 

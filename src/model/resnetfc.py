@@ -3,8 +3,7 @@ import torch
 
 #  import torch_scatter
 import torch.autograd.profiler as profiler
-import util
-
+from ..util import *
 
 # Resnet Blocks
 class ResnetBlockFC(nn.Module):

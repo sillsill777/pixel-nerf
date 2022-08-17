@@ -10,10 +10,10 @@ sys.path.insert(
 
 import warnings
 import trainlib
-from model import make_model, loss
-from render import NeRFRenderer
-from data import get_split_dataset
-import util
+from src.model import make_model, loss
+from src.render import NeRFRenderer
+from src.data import get_split_dataset
+import src.util as util
 import numpy as np
 import torch.nn.functional as F
 import torch
